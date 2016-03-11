@@ -1,3 +1,3 @@
-# Connection Plugin
+# Bluetooth Connection Plugin
 
-Connection plugin for the core features of BlueFlare.
+Bluetooth Connection plugin for the core features of BlueFlare.
