@@ -1,6 +1,7 @@
 import bluetooth
 from threading import *
-from client_handler import ClientHandler
+from message_handler import on_message
+import pickle
 
 class Listener(Thread):
     DEFAULT_PORT = 1
@@ -14,14 +15,13 @@ class Listener(Thread):
     def listen(self):
         self.ssock.bind(("", self.port))
         self.ssock.listen(1)
-        return self.ssock.accept()
 
     def run(self):
+        self.listen()
         while True:
-            self.handle(self.listen())
+            self.handle(self.ssock.accept())
 
-    # @on_message
+    @on_message
     def handle(self, data):
-        # TODO: return a message
-        print("Just received: " + data[0])
+        return pickle.loads(data[0].recv(1024))
 

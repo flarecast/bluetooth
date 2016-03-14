@@ -1,4 +1,5 @@
 from threading import Thread
+from listener import Listener
 import bluetooth
 import time
 
@@ -6,7 +7,6 @@ class NetworkScanner(Thread):
     def __init__(self, msg):
         Thread.__init__(self)
         self.emitted_devices = []
-        self.insistence = msg.insistence
         self.msg = msg
 
     def broadcast(self):
@@ -24,7 +24,7 @@ class NetworkScanner(Thread):
 
     def run(self):
         start = time.time()
-        while start + self.insistence < time.time():
+        while start + self.msg.insistence < time.time():
             self.broadcast()
 
     class Emitter(Thread):
@@ -35,7 +35,7 @@ class NetworkScanner(Thread):
             self.sock = bluetooth.BluetoothSocket(RFCOMM)
 
         def run(self):
-            sock.connect((self.addr, Server.DEFAULT_PORT))
+            sock.connect((self.addr, Listener.DEFAULT_PORT))
             sock.send(self.msg)
             sock.close()
 

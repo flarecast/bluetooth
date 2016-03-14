@@ -2,7 +2,6 @@ from connection_plugin import ConnectionPlugin
 from listener import Listener
 from network_scanner import NetworkScanner
 
-
 class BluetoothPlugin(ConnectionPlugin):
     def __init__(self):
         super().__init__()
