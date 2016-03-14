@@ -4,6 +4,7 @@ from client_handler import ClientHandler
 
 class Listener(Thread):
     DEFAULT_PORT = 1
+    BUFFER_SIZE = 1024
 
     def __init__(self):
         Thread.__init__(self)
@@ -17,5 +18,10 @@ class Listener(Thread):
 
     def run(self):
         while True:
-            ClientHandler( self.listen() ).start()
+            self.handle(self.listen())
+
+    # @on_message
+    def handle(self, data):
+        # TODO: return a message
+        print("Just received: " + data[0])
 
