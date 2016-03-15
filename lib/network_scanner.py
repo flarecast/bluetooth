@@ -23,12 +23,12 @@ class NetworkScanner(Thread):
         return bluetooth.discover_devices(lookup_names=False)
 
     def run(self):
-        start = time.time():
+        start = time.time()
         while start + self.insistence < time.time():
             self.broadcast()
 
     class Emitter(Thread):
-        def __init__(self, msg, addr)
+        def __init__(self, msg, addr):
             Thread.__init__(self)
             self.msg = msg
             self.addr = addr
