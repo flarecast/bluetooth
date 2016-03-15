@@ -8,7 +8,7 @@ class Listener(Thread):
     def __init__(self):
         Thread.__init__(self)
         self.port = Listener.DEFAULT_PORT
-        self.ssock = bluetooth.BluetoothSocket(RFCOMM)
+        self.ssock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 
     def listen(self):
         self.ssock.bind(("", self.port))

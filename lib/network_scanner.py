@@ -23,7 +23,7 @@ class NetworkScanner(Thread):
         return bluetooth.discover_devices(lookup_names=False)
 
     def run(self):
-        start = time.time()
+        start = time.time():
         while start + self.insistence < time.time():
             self.broadcast()
 
