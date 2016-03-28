@@ -30,7 +30,7 @@ class NetworkScanner(Thread):
 
     def run(self):
         start = time.time()
-        emitted_devices.append(msg.sender)
+        self.emitted_devices.append(self.msg.sender)
         while start + self.msg.insistence >  time.time():
             self.broadcast()
 

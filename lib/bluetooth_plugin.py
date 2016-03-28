@@ -2,7 +2,6 @@ from connection_plugin import ConnectionPlugin
 from listener import Listener
 from network_scanner import NetworkScanner
 import time
-import thread
 
 class BluetoothPlugin(ConnectionPlugin):
 
@@ -20,13 +19,13 @@ class BluetoothPlugin(ConnectionPlugin):
         #Periodic message id removal
         if(time.time() > self.last_removal+1800):
             self.last_removal = time.time()
-            thread.start_new_thread(self.remove_old_message_ids)
+            self.remove_old_message_ids()
 
         #Only sends if not repeated
-        if((msg.full_id(), msg.timestamp+msg.lifetime) not in self.sent_message_ids):
-            self.sent_message_ids.append((msg.full_id(), msg.timestamp + msg.lifetime))
+        if((msg.full_id(), msg.event.timestamp+msg.event.lifetime) not in self.sent_message_ids):
+            self.sent_message_ids.append((msg.full_id(), msg.event.timestamp + msg.event.lifetime))
             print("BROADCASTING")
-            NetworkScanner(msg, self).start()
+            NetworkScanner(msg).start()
 
     # API method
     def run(self):
