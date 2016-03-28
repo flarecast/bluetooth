@@ -9,6 +9,7 @@ class BluetoothPlugin(ConnectionPlugin):
 
     # API method
     def broadcast(self, msg):
+        print("BROADCASTING")
         NetworkScanner(msg).start()
 
     # API method
