@@ -43,9 +43,6 @@ class BluetoothPlugin(ConnectionPlugin):
         print(addr)
         return addr
 
-        # TODO: return bluetooth address
-        return "12345"
-
     def remove_old_message_ids(self):
         curr_time = time.time()
         for (msg_id, endtime) in self.sent_message_ids:
