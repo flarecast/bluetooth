@@ -6,6 +6,7 @@ class BluetoothPlugin(ConnectionPlugin):
     def __init__(self):
         super().__init__()
         self.listener = Listener()
+        self.addr = self.__get_bluetooth_addr()
 
     # API method
     def broadcast(self, msg):
@@ -18,5 +19,10 @@ class BluetoothPlugin(ConnectionPlugin):
 
     # API method
     def address(self):
-        # TODO: return bluetooth address
-        return "12345"
+        return self.addr
+
+    def __get_bluetooth_addr(self):
+        with open('config/bluetooth_address', 'r') as file:
+            addr = file.read()
+        print(addr)
+        return addr
