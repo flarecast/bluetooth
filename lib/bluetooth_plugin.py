@@ -3,6 +3,8 @@ from listener import Listener
 from network_scanner import NetworkScanner
 
 class BluetoothPlugin(ConnectionPlugin):
+    device_blacklist = []
+
     def __init__(self):
         super().__init__()
         self.listener = Listener()
@@ -11,7 +13,7 @@ class BluetoothPlugin(ConnectionPlugin):
     # API method
     def broadcast(self, msg):
         print("BROADCASTING")
-        NetworkScanner(msg).start()
+        NetworkScanner(msg, self).start()
 
     # API method
     def run(self):
