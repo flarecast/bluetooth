@@ -36,7 +36,7 @@ class BluetoothPlugin(ConnectionPlugin):
         return self.addr
 
     def __get_bluetooth_addr(self):
-        with open('config/bluetooth_address', 'r') as file:
+        with open('bluetooth_address', 'r') as file:
             addr = file.read()
         print(addr)
         return addr
