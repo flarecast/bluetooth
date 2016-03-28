@@ -14,7 +14,7 @@ class NetworkScanner(Thread):
     def broadcast(self):
         nearby_devices = self.scan_network()
         for addr in nearby_devices:
-            if addr not in self.emitted_devices and not in BluetoothPlugin.device_blacklist:
+            if addr not in self.emitted_devices and addr not in BluetoothPlugin.device_blacklist:
                 self.emit(self.msg, addr)
                 self.emitted_devices.append(addr)
             else:
