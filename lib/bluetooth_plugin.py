@@ -5,7 +5,6 @@ import time
 import thread
 
 class BluetoothPlugin(ConnectionPlugin):
-    device_blacklist = []
 
     def __init__(self):
         super().__init__()
