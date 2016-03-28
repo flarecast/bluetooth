@@ -1,6 +1,5 @@
 from threading import Thread
 from listener import Listener
-from bluetooth_plugin import BluetoothPlugin
 import bluetooth
 import time
 import pickle
