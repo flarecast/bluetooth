@@ -20,7 +20,7 @@ class NetworkScanner(Thread):
                 self.emit(self.msg, addr)
                 self.emitted_devices.append(addr)
             else:
-                print("ALREADY SENT TO: "+addr)
+                print("REPEATED DATA: "+addr)
 
     def emit(self,msg, addr):
         NetworkScanner.Emitter(msg, addr).start();
@@ -49,7 +49,8 @@ class NetworkScanner(Thread):
                 self.sock.close()
             except Exception as e:
                 self.sock.close()
-                NetworkScanner.device_blacklist.append(self.addr)
+                if(str(e) == "52"):
+                    NetworkScanner.device_blacklist.append(self.addr)
                 print(self.addr + " :: " + str(e))
                 print("IGNORED DEVICE: "+self.addr)
 
