@@ -1,3 +1,3 @@
-# Bluetooth Connection Plugin
+# Bluetooth Plugin
 
-Bluetooth Connection plugin for the core features of BlueFlare.
+Bluetooth communication plugin to propagate events using FlareCast.
