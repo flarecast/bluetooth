@@ -5,33 +5,32 @@ import time
 import pickle
 
 class NetworkScanner(Thread):
-    device_blacklist = []
-
+    device_blacklist = set()
 
     def __init__(self, msg):
         Thread.__init__(self)
-        self.emitted_devices = []
+        self.emitted_devices = set()
         self.msg = msg
 
     def broadcast(self):
-        nearby_devices = self.scan_network()
-        for addr in nearby_devices:
-            if addr not in self.emitted_devices and addr not in NetworkScanner.device_blacklist:
-                self.emit(self.msg, addr)
-                self.emitted_devices.append(addr)
-            else:
-                print("REPEATED DATA: "+addr)
+        devices = scan_network() - Message.ids() -
+            NetworkScanner.device_blacklist
 
-    def emit(self,msg, addr):
+        for addr in devices:
+            self.emit(self.msg, addr)
+            Message.register(self.msg.id, set(addr))
+
+    def emit(self, msg, addr):
         NetworkScanner.Emitter(msg, addr).start();
 
+    @staticmethod
     def scan_network(self):
         return bluetooth.discover_devices(lookup_names=False)
 
     def run(self):
         start = time.time()
         self.emitted_devices.append(self.msg.sender)
-        while start + self.msg.insistence >  time.time():
+        while start + self.msg.insistence > time.time():
             self.broadcast()
 
     class Emitter(Thread):
@@ -47,11 +46,10 @@ class NetworkScanner(Thread):
                 print("SENDING: "+self.addr)
                 self.sock.send(pickle.dumps(self.msg))
                 self.sock.close()
+                Message.register(self.msg.id, {self.msg.sender})
             except Exception as e:
                 self.sock.close()
                 if(str(e) == "52"):
                     NetworkScanner.device_blacklist.append(self.addr)
                 print(self.addr + " :: " + str(e))
                 print("IGNORED DEVICE: "+self.addr)
-
-
