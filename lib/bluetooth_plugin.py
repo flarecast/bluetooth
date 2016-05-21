@@ -4,6 +4,7 @@ from network_scanner import NetworkScanner
 import time
 
 class BluetoothPlugin(ConnectionPlugin):
+    ADDR_FILE = 'config/bluetooth_address'
 
     def __init__(self):
         super().__init__()
@@ -25,7 +26,7 @@ class BluetoothPlugin(ConnectionPlugin):
         return self.addr
 
     def __get_bluetooth_addr(self):
-        with open('bluetooth_address', 'r') as file:
+        with open(BluetoothPlugin.ADDR_FILE, 'r') as file:
             addr = file.read()
 
         # TODO: Check if print is still needed
