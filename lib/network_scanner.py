@@ -1,5 +1,6 @@
 from threading import Thread
 from listener import Listener
+from message import Message
 import bluetooth
 import time
 import pickle
@@ -13,23 +14,25 @@ class NetworkScanner(Thread):
         self.msg = msg
 
     def broadcast(self):
-        devices = scan_network() - Message.ids() -
-            NetworkScanner.device_blacklist
+        network = NetworkScanner.network()
+        repeated_devices = Message.addrs(self.msg.id)
+        blacklist = NetworkScanner.device_blacklist
+        devices = network - repeated_devices - blacklist
 
         for addr in devices:
             self.emit(self.msg, addr)
-            Message.register(self.msg.id, set(addr))
+            Message.register(self.msg.id, {addr})
 
     def emit(self, msg, addr):
         NetworkScanner.Emitter(msg, addr).start();
 
     @staticmethod
-    def scan_network(self):
-        return bluetooth.discover_devices(lookup_names=False)
+    def scan_network():
+        return set(bluetooth.discover_devices(lookup_names=False))
 
     def run(self):
         start = time.time()
-        self.emitted_devices.append(self.msg.sender)
+        self.emitted_devices.add(self.msg.sender)
         while start + self.msg.insistence > time.time():
             self.broadcast()
 
@@ -50,6 +53,6 @@ class NetworkScanner(Thread):
             except Exception as e:
                 self.sock.close()
                 if(str(e) == "52"):
-                    NetworkScanner.device_blacklist.append(self.addr)
+                    NetworkScanner.device_blacklist.add(self.addr)
                 print(self.addr + " :: " + str(e))
                 print("IGNORED DEVICE: "+self.addr)
