@@ -11,7 +11,6 @@ class BluetoothPlugin(ConnectionPlugin):
         self.listener = Listener()
         self.addr = self.__get_bluetooth_addr()
 
-
     # API method
     def broadcast(self, msg):
         print("BROADCASTING")
@@ -31,4 +30,4 @@ class BluetoothPlugin(ConnectionPlugin):
 
         # TODO: Check if print is still needed
         print(addr)
-        return addr
+        return addr.strip()
