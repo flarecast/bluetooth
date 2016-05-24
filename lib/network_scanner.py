@@ -46,7 +46,7 @@ class NetworkScanner(Thread):
         def run(self):
             try:
                 self.sock.connect((self.addr, Listener.DEFAULT_PORT))
-                print("SENDING: "+self.addr)
+                print("SENDING TO " + self.addr)
                 self.sock.send(pickle.dumps(self.msg))
                 self.sock.close()
                 Message.register(self.msg.id, {self.msg.sender})
@@ -55,4 +55,4 @@ class NetworkScanner(Thread):
                 if(str(e) == "52"):
                     NetworkScanner.device_blacklist.add(self.addr)
                 print(self.addr + " :: " + str(e))
-                print("IGNORED DEVICE: "+self.addr)
+                print("IGNORED DEVICE: " + self.addr)

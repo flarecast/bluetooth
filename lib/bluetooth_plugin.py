@@ -28,6 +28,5 @@ class BluetoothPlugin(ConnectionPlugin):
         with open(BluetoothPlugin.ADDR_FILE, 'r') as file:
             addr = file.read()
 
-        # TODO: Check if print is still needed
-        print(addr)
+        print("Bluetooth Address: {}".format(addr))
         return addr.strip()
