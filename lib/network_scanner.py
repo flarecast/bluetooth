@@ -14,7 +14,7 @@ class NetworkScanner(Thread):
         self.msg = msg
 
     def broadcast(self):
-        network = NetworkScanner.network()
+        network = NetworkScanner.scan_network()
         repeated_devices = Message.addrs(self.msg.id)
         blacklist = NetworkScanner.device_blacklist
         devices = network - repeated_devices - blacklist
